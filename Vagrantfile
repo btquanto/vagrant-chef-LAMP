@@ -39,4 +39,23 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
         vb.customize ['setextradata', :id, 'VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root', '1']
     end
+
+    config.vm.provision :chef_solo do |chef|
+
+        chef.provisioning_path = chef_cache
+
+        chef.cookbooks_path = [
+            'chef/chef-cookbooks',
+            'chef/site-cookbooks',
+        ]
+
+        chef.json = {
+            :app => {
+                :user => 'vagrant',
+            },
+        }
+
+        chef.add_recipe 'main'
+    end
+
 end

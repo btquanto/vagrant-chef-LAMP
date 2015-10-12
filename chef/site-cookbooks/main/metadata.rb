@@ -1,0 +1,9 @@
+name             "main"
+maintainer       "Quan To"
+maintainer_email "me@theitfox.com"
+license          "All rights reserved"
+description      "Installs/Configures main"
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          "0.0.1"
+depends          "git"
+depends          "python"
