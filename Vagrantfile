@@ -53,6 +53,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             :app => {
                 :user => 'vagrant',
             },
+            :apache => {
+                :user => 'vagrant',
+            },
+            :mysql => {
+                :server_root_password => 'vagrant',
+            },
         }
 
         chef.add_recipe 'main'
