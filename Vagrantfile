@@ -56,8 +56,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             :apache => {
                 :user => 'vagrant',
             },
-            :mysql => {
-                :server_root_password => 'vagrant',
+            :db => {
+                :host => 'localhost',
+                :name => 'vagrant',
+                :user => 'vagrant',
+                :password => 'vagrant',
             },
         }
 
