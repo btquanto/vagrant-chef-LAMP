@@ -56,12 +56,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             :apache => {
                 :user => 'vagrant',
             },
+            :php => {
+                :ppa => {
+                    :uri => 'ppa:ondrej/php5',
+                    :key_server => 'keyserver.ubuntu.com',
+                    :key => 'E5267A6C'
+                }
+            },
             :db => {
                 :host => 'localhost',
                 :name => 'vagrant',
                 :user => 'vagrant',
                 :password => 'vagrant',
             },
+            :mysql => {
+                :server_root_password => 'vagrant',
+            }
         }
 
         chef.add_recipe 'main'
