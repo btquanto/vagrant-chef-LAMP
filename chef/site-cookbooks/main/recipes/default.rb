@@ -1,7 +1,7 @@
 include_recipe 'git'
 include_recipe 'python'
+include_recipe 'php'
 include_recipe 'apache2'
-include_recipe 'mysql::client'
 include_recipe 'apache2::mod_php5'
 
 app = node[:app]
@@ -26,18 +26,24 @@ user app_user do
     action :create
 end
 
-template "/etc/apache2/sites-available/#{app_name}" do
+template "/etc/apache2/sites-available/#{app_name}.conf" do
     source 'apache2-site.erb'
     mode '644'
     notifies :reload, 'service[apache2]'
 end
 
-apache_site 'default' do
-    action :disable
+template "/etc/php5/apache2/php.ini" do
+    source 'php.ini.erb'
+    mode '644'
+    notifies :reload, 'service[apache2]'
 end
 
-apache_site app_name do
-    action :enable
+execute 'a2dissite 000-default' do
+  user 'root'
+end
+
+execute 'a2ensite app' do
+  user 'root'
 end
 
 if db[:host] == 'localhost'
@@ -53,3 +59,4 @@ if db[:host] == 'localhost'
         owner db_user
     end
 end
+
